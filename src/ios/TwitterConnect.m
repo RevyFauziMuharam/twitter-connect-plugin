@@ -8,12 +8,12 @@
 
 - (void)pluginInitialize
 {
-    
+
     NSString* consumerKey = [self.commandDelegate.settings objectForKey:[@"TwitterConsumerKey" lowercaseString]];
     NSString* consumerSecret = [self.commandDelegate.settings objectForKey:[@"TwitterConsumerSecret" lowercaseString]];
     [[Twitter sharedInstance] startWithConsumerKey:consumerKey consumerSecret:consumerSecret];
     [Fabric with:@[[Twitter sharedInstance]]];
-    
+
     [Fabric with:@[TwitterKit]];
 }
 
@@ -47,12 +47,12 @@
 
 - (void)showUser:(CDVInvokedUrlCommand*)command
 {
-	TWTRAPIClient *apiClient = [[Twitter sharedInstance] APIClient];
+  TWTRAPIClient *apiClient = [[Twitter sharedInstance] APIClient];
 
-	NSDictionary *requestParameters = [NSDictionary dictionaryWithObjectsAndKeys:[[[Twitter sharedInstance] session] userID], @"user_id", nil];
+	NSDictionary *requestParameters = [NSDictionary dictionaryWithObjectsAndKeys:@"true", @"include_email", nil];
 	NSError *error = nil;
 	NSURLRequest *apiRequest = [apiClient URLRequestWithMethod:@"GET"
-														   URL:@"https://api.twitter.com/1.1/users/show.json"
+														   URL:@"https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
 													parameters:requestParameters
 														 error:&error];
 	[apiClient sendTwitterRequest:apiRequest

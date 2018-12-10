@@ -122,7 +122,7 @@ public class TwitterConnect extends CordovaPlugin {
 			public void run() {
 				UserServiceApi twitterApiClient = new UserServiceApi(Twitter.getSessionManager().getActiveSession());
 				UserService userService = twitterApiClient.getCustomService();
-				userService.show(Twitter.getSessionManager().getActiveSession().getUserId(), new Callback<Response>() {
+				userService.detail(true, new Callback<Response>() {
 					@Override
 					public void success(Result<Response> result) {
 						try {
@@ -140,7 +140,7 @@ public class TwitterConnect extends CordovaPlugin {
 			}
 		});
 	}
-	
+
 	private JSONObject handleResult(TwitterSession result) {
 		JSONObject response = new JSONObject();
 		try {
