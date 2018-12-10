@@ -114,6 +114,8 @@ public class TwitterConnect extends CordovaPlugin {
 	interface UserService {
 		@GET("/1.1/users/show.json")
 		void show(@Query("user_id") long id, Callback<Response> cb);
+		@GET("/1.1/account/verify_credentials.json")
+		void detail(@Query("include_email") boolean includeEmail, Callback<Response> cb);
 	}
 
 	private void showUser(final CallbackContext callbackContext) {
